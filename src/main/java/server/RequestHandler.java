@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -501,6 +502,21 @@ public class RequestHandler {
         Arrays.sort(mats);
         for(String m : mats) jsonArray.put(m);
         return Response.ok(jsonArray.toString()).header("Access-Control-Allow-Origin","*").build();
+    }
+
+
+    @GET
+    @Path("/saveAnswers/{qa}")
+    @Produces("application/json;charset=utf-8")
+    public Response saveAnswers(@PathParam("qa") String qa) {
+        try {
+            FileWriter fw = new FileWriter("questionAnswers.txt",true);
+            fw.write(qa);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok("[]").header("Access-Control-Allow-Origin","*").build();
     }
 
     /**

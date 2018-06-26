@@ -1,0 +1,26 @@
+body {
+    font-size: 15px;
+    margin: 0;
+    font-family: Verdana,sans-serif;
+    line-height: 1.5;
+}
+
+.mybody {
+    margin-top: 5%;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #6a6a6a;
+    color: white;
+}
+.header h4 {
+    margin: 10px;
+}
+
+:lang(fa)   {
+    font-family: BNazanin;
+    font-size: 120%;
+}
