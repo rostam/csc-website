@@ -69,7 +69,7 @@ function fertig() {
     }
 
 
-    $.get('http://0.0.0.0:2342/saveAnswers/' + JSON.stringify(res)).done(function (data) {
+    $.get(serverAddr+'saveAnswers/' + JSON.stringify(res)).done(function (data) {
         alert("The anwers are saved.")
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(errorThrown);
