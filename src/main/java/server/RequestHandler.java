@@ -509,6 +509,7 @@ public class RequestHandler {
     @Path("/saveAnswers/{qa}")
     @Produces("application/json;charset=utf-8")
     public Response saveAnswers(@PathParam("qa") String qa) {
+        System.out.println(new File("test").getAbsolutePath());
         try {
             FileWriter fw = new FileWriter("questionAnswers.txt",true);
             fw.write("\n"+qa);
