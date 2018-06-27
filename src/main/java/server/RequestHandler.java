@@ -511,7 +511,8 @@ public class RequestHandler {
     public Response saveAnswers(@PathParam("qa") String qa) {
         try {
             FileWriter fw = new FileWriter("questionAnswers.txt",true);
-            fw.write(qa);
+            fw.write("\n"+qa);
+            fw.flush();
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();

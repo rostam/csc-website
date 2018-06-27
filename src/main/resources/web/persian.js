@@ -5,12 +5,12 @@ var question_answers1 = {
 
 var question_answers2 = {
     q: "In Persisch spricht man anders als was man schreibt. Welches Ziel am Anfang möchten Sie gerne erreichen?",
-    a: ['richtig Texte lesen und schreiben', 'Filme und Musik und so weiter verstehen', 'sozialisieren']
+    a: ['sozialisieren', 'richtig Texte lesen und schreiben', 'Filme und Musik und so weiter verstehen']
 };
 
 var question_answers3 = {
     q: " Wie gut können Sie Persisch lesen/schreiben?" ,
-    a: ['ein bisschen', 'nichts', 'gut', 'Finglisch lesen/schreiben.' ]
+    a: ['ein bisschen', 'nichts', 'gut', 'Pinglisch lesen/schreiben.' ]
 };
 
 var question_answers4 = {
@@ -25,16 +25,19 @@ var quesiton_answers5 = {
 
 var quesiton_answers6 = {
     q: "Welche Themen in Persisch haben Sie bisher gemacht?",
-    a: ['Verbkonjugation', 'Wortschatz und Aussprache', 'Grundwörter und Verben', 'Sprechen (Grundwörter)',
-    'Diskussion']
-
+    a: ['Verbkonjugation', 'Wortschatz und Aussprache', 'Grundwörter und Verben', 'Sprechen (Grundwörter)', 'Diskussion', 'Grammatik']
 };
 
-var qas = [ question_answers1, question_answers2, question_answers3, question_answers4, quesiton_answers5,quesiton_answers6];
+var quesiton_answers7 = {
+    q: "Welche Themen finden Sie interessant zu lernen?",
+    a: ['Alltag', 'Sport', 'Wissenschaft', 'Kultur (Essen, Musik, Film, ...)', 'Chat und Kommunikation', 'Geschichte', 'Geographie']
+};
+
+var qas = [ question_answers1, question_answers2, question_answers3, question_answers4, quesiton_answers5,quesiton_answers6, quesiton_answers7];
 
 function gen_quesntion_answers_checkbox(htmldiv, qas) {
-    var htmlText = "<ol>";
-    var cnt = 0;
+    var htmlText = "<label style='margin-left: 18px;'>Name:</label><input id='item0'><ol>";
+    var cnt = 1;
     qas.forEach(function (qa) {
         htmlText += '<li>' + qa.q + "<br/><table><tr>";
         var answers = qa.a;
@@ -64,9 +67,9 @@ function fertig() {
             }
         }
     }
-    console.log(res);
+
     $.get('http://0.0.0.0:2342/saveAnswers/' + JSON.stringify(res)).done(function (data) {
-        console.log(data);
+        alert("The anwers are saved.")
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(errorThrown);
     });
