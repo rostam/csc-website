@@ -128,17 +128,20 @@ function Report() {
     if (reportProps == "") {
         reportProps = "no";
     }
+    var dd = JSON.stringify({
+        "type": "report",
+        "name": $('#reports').find('option:selected').text(),
+        "graph": $('#categories').find('option:selected').text(),
+        "uuid": uuid,
+        "propsKeys": $('#reportPropsKeys').html(),
+        "propsVals": $('#reportPropsVals').val(),
+        "directed": type
+    });
+    console.log(dd);
+
     jQuery.ajax({
-        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
-        data: JSON.stringify({
-            "type": "report",
-            "name": $('#reports').find('option:selected').text(),
-            "graph": $('#categories').find('option:selected').text(),
-            "uuid": uuid,
-            "propsKeys": $('#reportPropsKeys').html(),
-            "propsVals": $('#reportPropsVals').val(),
-            "directed": type
-        }),
+        url: serverAddr+'add', type: 'POST', contentType: 'application/json',
+        data: dd,
         dataType: 'json'
     })
     //
@@ -192,17 +195,19 @@ function load_generator(isDraw,webgl,ended) {
         drawBotanical();
         return;
     }
+    var dd = JSON.stringify({
+        "type": "gen",
+        "name": $('#categories').find('option:selected').text(),
+        "graph": $('#categories').find('option:selected').text(),
+        "uuid": uuid,
+        "propsKeys": $('#props_keys').html(),
+        "propsVals": $('#props_vals').val(),
+        "directed": type
+    });
+    console.log(dd);
     jQuery.ajax({
-        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
-        data: JSON.stringify({
-            "type": "gen",
-            "name": $('#categories').find('option:selected').text(),
-            "graph": $('#categories').find('option:selected').text(),
-            "uuid": uuid,
-            "propsKeys": $('#props_keys').html(),
-            "propsVals": $('#props_vals').val(),
-            "directed": type
-        }),
+        url: serverAddr+'add', type: 'POST', contentType: 'application/json',
+        data: dd,
         dataType: 'json'
     })
         .done(function (data) {
