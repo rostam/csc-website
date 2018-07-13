@@ -36,7 +36,10 @@ function initCytoscape(arrow, _serverAddr, _uuid) {
                     'background-color': 'lightgray',
                     'label': 'data(label)',
                     'text-valign': 'center',
-                    'background-opacity':0.7
+                    'background-opacity':0.7,
+                    'border-width': 1,
+                    'border-color': 'black',
+                    'font-family': 'Times New Roman, Times, serif;'
                 }
             },
             {

@@ -421,7 +421,6 @@ public class RequestHandler {
         return Response.ok(jsonObject.toString()).header("Access-Control-Allow-Origin", "*").build();
     }
 
-
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -594,6 +593,29 @@ public class RequestHandler {
 //        newPos[1][pos[0].length] = pos[1][highBCVertex] + 1;
 
         String json = "";//CytoJSONBuilder.getJSON(newEdgeList,newPos);
+        return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    /**
+     * Get the complete graph in cytoscape-conform form.
+     *
+     * @param strings name of the database
+     * @return Response containing the graph as a JSON, in cytoscape conform format.
+     * @throws JSONException if JSON creation fails
+     * @throws IOException   if reading fails
+     */
+    @POST
+    @Path("/several")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response severalHandler(JSONExtensionHandler msg){
+        String[] splitted = msg.getgraph().split(",");
+        String json = null;
+        try {
+            json = CytoJSONBuilder.getJSONForSeveralGraphsG6(splitted);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return Response.ok(json).header("Access-Control-Allow-Origin", "*").build();
     }
 

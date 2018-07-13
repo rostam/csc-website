@@ -1,5 +1,6 @@
 package server;
 
+import graphtea.extensions.G6Format;
 import graphtea.graph.graph.Edge;
 import graphtea.graph.graph.GPoint;
 import graphtea.graph.graph.GraphModel;
@@ -230,5 +231,57 @@ public class CytoJSONBuilder {
     returnedJSON.put(EDGES, edgeArray);
     returnedJSON.put(EDGES, edgeArray);
     return returnedJSON.toString();
+  }
+
+  static String getJSONForSeveralGraphsG6(String[] strings) throws JSONException {
+    JSONArray jsonArray = new JSONArray();
+    for (String s : strings) {
+      GraphModel g = G6Format.stringToGraphModel(s);
+      JSONObject returnedJSON = new JSONObject();
+      returnedJSON.put(TYPE, "graph");
+      JSONArray graphArray = new JSONArray();
+      JSONObject graphObject = new JSONObject();
+      JSONObject graphProperties = new JSONObject();
+      graphObject.put(IDENTIFIER, "root");
+      graphObject.put(LABEL, "Tree");
+      graphObject.put(PROPERTIES, graphProperties);
+      graphArray.put(graphObject);
+      returnedJSON.put(GRAPHS, graphArray);
+
+      JSONArray vertexArray = new JSONArray();
+      for (int i = 0; i < g.numOfVertices(); i++) {
+        JSONObject vertexObject = new JSONObject();
+        JSONObject vertexData = new JSONObject();
+        vertexData.put(IDENTIFIER, i);
+        vertexData.put(LABEL, g.getVertex(i).getLabel());
+        JSONObject pos = new JSONObject();
+        JSONObject vertexProperties = new JSONObject();
+        GPoint points = g.getVertex(i).getLocation();
+        pos.put("x", points.getX());
+        pos.put("y", points.getY());
+        vertexData.put(PROPERTIES, vertexProperties);
+        vertexObject.put(DATA, vertexData);
+        vertexObject.put("position", pos);
+        vertexArray.put(vertexObject);
+      }
+      returnedJSON.put(VERTICES, vertexArray);
+
+      JSONArray edgeArray = new JSONArray();
+      for (Edge e : g.getEdges()) {
+        JSONObject edgeObject = new JSONObject();
+        JSONObject edgeData = new JSONObject();
+        edgeData.put(EDGE_SOURCE, e.source.getId());
+        edgeData.put(EDGE_TARGET, e.target.getId());
+        edgeData.put(IDENTIFIER, e.source.getId() + "," + e.target.getId());
+        JSONObject edgeProperties = new JSONObject();
+        edgeData.put(PROPERTIES, edgeProperties);
+        edgeObject.put(DATA, edgeData);
+        edgeArray.put(edgeObject);
+      }
+      returnedJSON.put(EDGES, edgeArray);
+      returnedJSON.put(EDGES, edgeArray);
+      jsonArray.put(returnedJSON);
+    }
+    return jsonArray.toString();
   }
 }
