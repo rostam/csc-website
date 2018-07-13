@@ -608,8 +608,16 @@ public class RequestHandler {
     @Path("/several")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response severalHandler(JSONExtensionHandler msg){
-        String[] splitted = msg.getgraph().split(",");
+    public Response severalHandler(JSONExtensionHandler msg) {
+        String graph = msg.getgraph();
+        String[] splitted;
+        if (graph.contains(",")) {
+            splitted = graph.split(",");
+        } else if (graph.contains("\n")) {
+            splitted = graph.split("\n");
+        } else {
+            splitted = graph.split(" ");
+        }
         String json = null;
         try {
             json = CytoJSONBuilder.getJSONForSeveralGraphsG6(splitted);

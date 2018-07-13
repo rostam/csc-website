@@ -236,7 +236,7 @@ public class CytoJSONBuilder {
   static String getJSONForSeveralGraphsG6(String[] strings) throws JSONException {
     JSONArray jsonArray = new JSONArray();
     for (String s : strings) {
-      GraphModel g = G6Format.stringToGraphModel(s);
+      GraphModel g = G6Format.stringToGraphModel(s.trim());
       JSONObject returnedJSON = new JSONObject();
       returnedJSON.put(TYPE, "graph");
       JSONArray graphArray = new JSONArray();
