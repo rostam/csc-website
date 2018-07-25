@@ -9,8 +9,7 @@ package graphtea.library;
  * Wrapper for basic properties of a vertex.
  * @author Omid Aladini
  */
-public class BaseVertexProperties
-        implements Cloneable {
+public class BaseVertexProperties implements Cloneable {
     public int color;
     public boolean mark;
 

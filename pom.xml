@@ -130,5 +130,12 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.ejml</groupId>
+            <artifactId>ejml-all</artifactId>
+            <version>0.34</version>
+        </dependency>
+
     </dependencies>
 </project>

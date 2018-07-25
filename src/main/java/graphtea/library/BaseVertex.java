@@ -24,6 +24,15 @@ public class BaseVertex {
     protected BaseVertexProperties prop;
     private ArrayList<Integer> subgraphIds = null;
     private Integer id;
+    private int weight = 0;
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getWeight() {
+        return this.weight;
+    }
 
     public BaseVertex(BaseVertexProperties prop) {
         this.prop = prop;
