@@ -9,21 +9,48 @@
 <body>
 <h1>M. Ali Rostami</h1>
 <img src="ali.jpg" style="float: right;" alt="Photo: M. Ali Rostami, 2013">
-My name ist Ali and I am working as a senior research scientist at Big Data Competennce Center
-(<a href="scads.de">ScaDS</a>) in Leipzig, Germany.
+My name ist Ali and I am currently working as a senior research scientist and developer.
+I did my bachelor of science in applied mathematics at Sharif University of Iran
+and my master of science in media informatics at RWTH Aachen. I have finished my PHD
+at parallelization strategies in 2017.
+
+My native language is Persian and I can speak fluently both English and German
+and  know a little bit of Spanish.
+In the followings, I will first summarize my projects and then present some of my publications.
 
 <h2>Projects:</h2>
 <ul>
 
-    <li><a href="https://github.com/dbs-leipzig/gradoop">GRADOOP</a> is an open-source system, developed on Apache Flink, for graph analytics
+    <li>
+        <a href="https://www.urz.uni-leipzig.de/wir-ueber-uns/projekte/biggr/">BIGGR</a>
+        is a collaborative project between the company KNIME (<a href="knime.com">KNIME</a>) in
+        Berlin and the Big Data competennce center (<a href="scads.de">ScaDS</a>) in Leipzig.
+        In this project, we develop a software system in which a user without deep knowledge of big
+        data processing can build a graph analysis workflows graphically from simple basic operators.
+        I also implemented a visualization tool,
+        called <a href="gradoop.html">GradoopVis</a> ,
+        on this software which can be used separately as a web application as well as inside the KNIME software.
+        For this purpose, the KNIME Analytics platform has been extended with a new set of tools
+        that represent the GRADOOP operators and the possibility
+        to execute the resulting workflows on a remote cluster.
+        <a href="https://github.com/dbs-leipzig/gradoop">GRADOOP</a> is an open-source system,
+        developed on Apache Flink, for graph analytics
         that enables handling of property graphs
-        (both vertices and edges can have several properties). GRADOOP is implemented on top of Apache Flink.
-        I develop new algorithms to do preprocessing on graphs (like graph sampling) and to visualize them.
-        At the same time I integrate these methods as well as other operators into KNIME
-        (a leading data analytics platform).</li>
+        (both vertices and edges can have several properties).
+        This is my current position started at 2017 and will finish at early 2019.
+    </li>
     <li><a href="index.html">GraphTea</a> is a Mathematical platform and library for graph
         algorithms and visualizations. I am a developer, designer and maintainer of project
-        GraphTea.
+        GraphTea. The GraphTea core
+    </li>
+    <li><a href="">ChemTea</a> is a set of tools which I developed in which the user can
+        run a given function on several graphs and see a table of results at the end.
+        We called this tool at first <b>ChemTea</b> since we used these tools to compute
+        several known parameters in chemical graph theory over huge set of graphs.
+        Since the number of graphs grows exponentially I considered different methods
+        coming mostly from Big Data approaches. The tools are written mostly in Java.
+        There are some parts of C++ code as well as an interface for python.
+        The software is not still publicly available.
     </li>
 </ul>
 
