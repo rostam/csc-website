@@ -9,27 +9,61 @@
 <body>
 <h1>M. Ali Rostami</h1>
 <img src="ali.jpg" style="float: right;" alt="Photo: M. Ali Rostami, 2013">
-My name ist Ali and I am currently working as a senior research scientist and developer.
-I did my bachelor of science in applied mathematics at Sharif University of Iran
-and my master of science in media informatics at RWTH Aachen. I have finished my PHD
-at parallelization strategies in 2017.
+<p>
+    My name ist Ali and I am currently working as a senior research associate.
+    I did my BSc in Applied Mathematics at Sharif University of Tehran
+    and my MSc in Media Informatics at RWTH Aachen, Germany. I finished my PhD
+    in Parallelization Strategies at University of Jena in 2017.
+</p><p>
+    I have a strong mathematical background and been always working in the areas
+    relevant to both mathematics and computer science.
+    My teaching experiences involves parallel programming and visual analytics and supervising
+    several seminars and bachelor/master thesis.
+    In addition to the research and teaching positions, I have also exposed to the leading
+    responsibility while coordinating the
+    <a href="http://www.graphtheorysoftware.com/">GraphTea</a> project as an international
+    collaboration.
+    <!--I have also had various educational talks about the Borsak-Ulam theorem and graph -->
+    <!--homomorphisms.-->
+</p><p>
+    I have proficiency in several programming languages and technologies such as
+    Java/Scala, C++17, Python, and node.js. I am pretty experienced in parallelization
+    libraries like MPI, OpenMP/Threading, Apache Flink, Apache Spark,
+    and CUDA. Additionally, I have some experiences with Go and Rust programming languages.
 
-My native language is Persian and I can speak fluently both English and German
-and know a little bit of Spanish. I also teach Persian for fun during my free time.
-In the followings, I will first summarize my projects and then present some of my publications.
-
+</p><p>
+    My native language is Persian. I speak fluent English and German and know a little bit of
+    Spanish, Azeri, and Turkish.
+    Since I am so passionate about languages, I teach Persian language relatively
+    professionally in my spare time.
+    I am crazy about music and play violin as a hobby since years.
+    More information can be found in
+    <a href="https://www.researchgate.net/profile/M_Ali_Rostami">ResearchGate</a>,
+    <a href="https://github.com/graphtheorysoftware/">GitHub (graph theory software)</a>
+    <a href="https://github.com/rostam/">GitHub (rostam)</a>,
+    <a href="https://www.youtube.com/watch?v=4ecqVsnti9E&t=151s">YouTube</a>,
+    <a href="https://dbs.uni-leipzig.de/person/mohammad_ali_rostami">University of Leipzig</a>,
+    <a href="https://www.scads.de/de/wissenschaftliche-mitarbeiter">ScaDS</a>,
+    and <a href="http://c3e.de/team/arostami">c3e</a>.
+    You can write me to <a href="mailto:rostamiev@gmail.com" target="_top">GMail</a>
+    and <a href="mailto:a.rostami@uni-jena.de" target="_top">my university's Email. </a>.
+    In the followings, I will first summarize my projects and then present some of my publications.
+</p>
 <h2>Projects:</h2>
 <ul>
-
     <li>
         <a href="https://www.urz.uni-leipzig.de/wir-ueber-uns/projekte/biggr/">BIGGR</a>
-        is a collaborative project between the company KNIME (<a href="knime.com">KNIME</a>) in
-        Berlin and the Big Data competennce center (<a href="scads.de">ScaDS</a>) in Leipzig.
+        is a collaborative project between the company KNIME (<a
+            href="https://www.knime.com/">KNIME</a>) in
+        Berlin and the Big Data competennce center (<a href="https://www.scads.de/en/">ScaDS</a>) in
+        Leipzig.
         In this project, we develop a software system in which a user without deep knowledge of big
-        data processing can build a graph analysis workflows graphically from simple basic operators.
+        data processing can build a graph analysis workflows graphically from simple basic
+        operators.
         I also implemented a visualization tool,
-        called <a href="gradoop.html">GradoopVis</a> ,
-        on this software which can be used separately as a web application as well as inside the KNIME software.
+        called <a href="gradoop.html">GradoopVis</a>,
+        on this software which can be used separately as a web application as well as inside the
+        KNIME software.
         For this purpose, the KNIME Analytics platform has been extended with a new set of tools
         that represent the GRADOOP operators and the possibility
         to execute the resulting workflows on a remote cluster.
@@ -39,57 +73,76 @@ In the followings, I will first summarize my projects and then present some of m
         (both vertices and edges can have several properties).
         This is my current position started at 2017 and will finish at early 2019.
     </li>
-    <li><a href="index.html">GraphTea</a> is a Mathematical platform and library for graph
+    <li><a href="http://www.graphtheorysoftware.com/">GraphTea</a>
+        is an <a href="https://github.com/graphtheorysoftware/GraphTea">open source</a> mathematical
+        platform and library for graph
         algorithms and visualizations. I am a developer, designer and maintainer of project
         GraphTea. It is more than a group of developed algorithms,
-        but rather a platform in which desired algorithms could be easily implemented by a normal user.
+        but rather a platform in which desired algorithms could be easily implemented by a normal
+        user.
         The GraphTea core is written in Java on which we develop a web user interface in Javascript.
-        So the user can use GraphTea both locally and online.
+        So the user can use GraphTea both locally and <a href="index.html">online</a>, 2012 - Now.
     </li>
-    <li><a href="">ChemTea</a> is a set of tools which I developed in which the user can
+    <li><a href="ChemTea-Design.pdf">ChemTea</a> is a set of tools which I developed in which the
+        user can
         run a given function on several graphs and see a table of results at the end.
         We called this tool at first <b>ChemTea</b> since we used these tools to compute
         several known parameters in chemical graph theory over huge set of graphs.
-        Since the number of graphs grows exponentially I considered different methods
-        coming mostly from Big Data approaches. The tools are written mostly in Java.
+        Since the number of graphs grows exponentially I consider different methods
+        from Big Data approaches. These tools are implemented first as an extension
+        of GraphTea but then we started a separate project since it became big.
         There are some parts of C++ code as well as an interface for python.
-        The software is not still publicly available.
+        The software is not still publicly available, 2014 - Now.
     </li>
 
-    <li><a href="precol.html">PreCol</a> is to compute the graph coloring and preconditioning in a way which gets
+    <li><a href="precol_doc/index.html">PreCol</a> is to compute the graph coloring and
+        preconditioning in a way which gets
         benefit from
-        Automatic Differentiation. The coloring algorithms are implemented in C++ because of efficiency
+        Automatic Differentiation. The coloring algorithms are implemented in C++ because of
+        efficiency
         and parallelism.We also developed two graphical interfaces for Java and MATLAB, 2013 - 2017.
     </li>
     <li>
-        <a href="http://www.gge.eonerc.rwth-aachen.de/cms/E-ON-ERC-GGE/Forschung/Ausstattung/~fqun/Shemat-Software/?lidx=1">SHEMAT</a>
-        is a software package, developed at E.ON Energy
-        Research Center of RWTH Aachen University,
-        for the numerical simulation of reactive transport in porous media.
-        I was in charge of implementing parallel methods for forward as well as
-        inverse approaches like Monte Carlo and ensemble Kalman filter without
-        considering all available designs in code. For example, the code is written
-        such that it can be derived using automatic differentiation.
-        I implemented finally a hybrid MPI/OpenMP parallelization using
-        Fortran and C++.
+        <a href="http://c3e.de/research/project/meprorisk">MeProRisk II</a>
+        Geothermal reservoirs provide heat that can be used to generate clean, renewable, and
+        plentiful energy. However, the exploration and the development of these reservoirs
+        involve high engineering and economic risks. Despite steady improvements in drilling
+        technology over the last decades, drilling of numerous deep boreholes
+        from the surface into suitable rock types at a depth of some kilometers is still
+        a major cost component of geothermal energy.
+        The MeProRisk II project aims at reducing these risks by combining skills from different
+        scientific disciplines. Geophysicists, mathematicians, and computer scientists from
+        five German universities and a private company develop and apply new methods in seismic
+        modeling and interpretation, numerical reservoir simulation, estimation of petrophysical
+        parameters, and scientific visualization.
+        My job was to include the parallel computing into the main software,
+        called
+        <a href="http://www.gge.eonerc.rwth-aachen.de/cms/E-ON-ERC-GGE/Forschung/Ausstattung/~fqun/Shemat-Software/?lidx=1">SHEMAT</a>,
+        by considering all existing designs in code, 2012 - 2016.
     </li>
 
-    <li><a href="explain/index.html">EXPLAIN</a> is a set of interactive learning modules used in classroom to
+    <li><a href="explain/index.html">EXPLAIN</a> is a set of interactive learning modules used in
+        classroom to
         teach scientific computing concepts. They are web-based application
-        written in Python and Javascript. The users can also interactively develop their algorithms in an online
-        editor, which is available in the same page as the tool, and test the results instantly.
+        written in Python and Javascript. The users can also interactively develop their algorithms
+        in an online
+        editor, which is available in the same page as the tool, and test the results instantly,
+        2013 - 2016.
     </li>
     <li>
         Selected smaller projects which I did in my master:
         <b>Redmine Client</b> is a mobile client for the project management web application
-        <b>Redmine</b> which is available for Android and IOS now. Humance AG, Cologne, May 2012 - November 2012.
+        <b>Redmine</b> which is available for Android and IOS now. Humance AG, Cologne, May 2012 -
+        November 2012.
         <b>Castle Crisis</b> is a Android location-based game which I developed during
-        <a href="http://www.totem-games.org/?q=node/156">Bonn Fraunhofer summer school</a>, July 2012.
+        <a href="http://www.totem-games.org/?q=node/156">Bonn Fraunhofer summer school</a>, July
+        2012.
         <b>AggGen</b> is to extract a 3D model of black Carbon based on
         TEM (Transmission Electron Microscope) images. The project is implemented in MATLAB/C++
         and pursued different approaches toward the problem.
         mechanical group of RWTH Aachen, December 2011 - August 2012.
-        <b>OpenFlipper</b> is a C++ library for 3D graphics developed at RWTH Aachen.
+        <a href="https://www.openflipper.org/">OpenFlipper</a> is a C++ library for 3D graphics
+        developed at RWTH Aachen.
         I was working on an algorithm to find the optimum hexagonal mesh of an object,
         which is widely used in the architecture, May 2011 - October 2011.
     </li>
