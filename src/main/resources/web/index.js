@@ -1,3 +1,6 @@
+//var serverAddr = "http://127.0.0.1:2342/";
+var serverAddr = "http://0.0.0.0:2342/";
+// var serverAddr = "http://csc.inf-ra.uni-jena.de:80/";
 var nodeId = 0;
 var cy; //cytoscape object
 var selectedNode;
@@ -10,13 +13,41 @@ var original_data = {};
 $.get(serverAddr + 'graphs/')
     .done(function (data) {
         original_data = data;
-        var categoriesSelect = $('#categories');
+
+        var categoriesSelect = $('#categories1');
+        var generatorSelect = $('#gens');
+
+        var category_generators = {};
         data.graphs.forEach(function (d) {
-            categoriesSelect.append('<option>' + d.name + '</option>');
+            if(category_generators[d.category] == undefined) {
+                category_generators[d.category] = [];
+                category_generators[d.category].push(d.name);
+            } else {
+                category_generators[d.category].push(d.name);
+            }
             original_data[d.name] = {desc: d.desc, props: d.properties};
         });
+
+        Object.keys(category_generators).forEach(function (d) {
+            categoriesSelect.append('<option>' + d + '</option>');
+//            category_generators[d].forEach(function(cg) {
+//                generatorSelect.append('<option>' + cg + '</option>');
+//            });
+        });
+
         categoriesSelect.on('change', function () {
-            var category = getSelectedCategory();
+            var category = getSelectedCategory1();
+            generatorSelect.empty();
+            category_generators[category].forEach(function(cg) {
+                 generatorSelect.append('<option>' + cg + '</option>');
+            });
+            generatorSelect.html(generatorSelect.find('option').sort(function(x, y) {
+                return $(x).text() > $(y).text() ? 1 : -1;
+            }));
+        });
+
+        generatorSelect.on('change', function () {
+            var category = getSelectedGenerator();
             var keys = "", vals = "";
             original_data[category].props.forEach(function (d) {
                 var propNamesTypes = d.split(":");
@@ -40,10 +71,37 @@ $.get(serverAddr + 'graphs/')
         });
 
         var reportsSelect = $('#reports');
+        var reportCategories = $('#reportCategories');
+
+        var category_reports = {};
         data.reports.forEach(function (d) {
-            reportsSelect.append('<option>' + d.name + '</option>');
+            if(category_reports[d.category] == undefined) {
+                category_reports[d.category] = [];
+                category_reports[d.category].push(d.name);
+            } else {
+                category_reports[d.category].push(d.name);
+            }
             original_data[d.name] = {desc: d.desc, props: d.properties};
         });
+
+        Object.keys(category_reports).forEach(function (d) {
+            reportCategories.append('<option>' + d + '</option>');
+//            category_generators[d].forEach(function(cg) {
+//                generatorSelect.append('<option>' + cg + '</option>');
+//            });
+        });
+
+        console.log(category_reports);
+        reportCategories.on('change', function () {
+            reportsSelect.empty();
+            category_reports[getSelectedReportCategory()].forEach(function (d) {
+                reportsSelect.append('<option>' + d + '</option>');
+            });
+            reportsSelect.html(reportsSelect.find('option').sort(function(x, y) {
+                return $(x).text() > $(y).text() ? 1 : -1;
+            }));
+        });
+
         reportsSelect.on('change', function () {
             var report = getSelectedReport();
             var props = $('#reportProps');
@@ -62,11 +120,23 @@ $.get(serverAddr + 'graphs/')
             var desc = original_data[report].desc;
             $('#tooltiptextReport').html(desc);
         });
+
+        var algorithmsSelect = $('#graphAlgorithms');
+        data.algorithms.forEach(function (d) {
+            algorithmsSelect.append('<option>' + d.name + '</option>');
+            original_data[d.name] = {desc: d.desc, props: d.properties};
+        });
+
+        algorithmsSelect.html(algorithmsSelect.find('option').sort(function(x, y) {
+             return $(x).text() > $(y).text() ? 1 : -1;
+        }));
+
         var actionsSelect = $('#graphActions');
         data.actions.forEach(function (d) {
             actionsSelect.append('<option>' + d.name + '</option>');
             original_data[d.name] = {desc: d.desc, props: d.properties};
         });
+
         actionsSelect.on('change', function () {
             var action = getSelectedGraphAction();
             var props = $('#graphActionsProps');
@@ -118,6 +188,115 @@ function graphAction(){
         });
 }
 
+function graphAlgorithm(status) {
+    var type = $('#graphType').find('option:selected').text();
+    jQuery.ajax({
+        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
+        data: JSON.stringify({
+            "type": "algorithm",
+            "name": $('#graphAlgorithms').find('option:selected').text(),
+            "graph": $('#gens').find('option:selected').text(),
+            "uuid": uuid,
+//            "propsKeys": $('#reportPropsKeys').html(),
+//            "propsVals": $('#reportPropsVals').val(),
+            "directed": type,
+            "status": status
+        }),
+        dataType: 'json'
+    })
+    //
+    // $.get(serverAddr + 'report/'
+    //     + $('#categories').find('option:selected').text() + "--"
+    //     + $('#reports').find('option:selected').text() + "--"
+    //     + ($('#props_keys').html() + ":" + $('#props_vals').val()) + "--"
+    //     + ($('#reportPropsKeys').html() + ":" + $('#reportPropsVals').val())
+    //     + "--" + uuid)
+        .done(function (data) {
+            console.log(data);
+            var arr = data.steps;
+            if(status == 'load_algorithm') {
+              for(var stepCounter = 0; stepCounter < arr.length;stepCounter++) {
+                stepMessage = arr[stepCounter].split("+++");
+                if(stepMessage[0].indexOf('RequestVertex') != -1) {
+                    status += "rv";
+                }
+              }
+            } else {
+                var id = null;
+            function myMove(data) {
+              var stepCounter = 0;
+              clearInterval(id);
+              id = setInterval(frame, 1000);
+              function frame() {
+                if (stepCounter == arr.length - 1) {
+                  clearInterval(id);
+                } else {
+                  if(arr[stepCounter].indexOf("Step") == -1) return;
+                  stepMessage = arr[stepCounter].split("+++");
+                  tmp = stepMessage[0].replace("<br/>","").replace("Step==","");
+                  if(tmp.length > 1)
+                    $("#algResults").html($("#algResults").html()+tmp+"\n\n");
+                  var colors = stepMessage[2].split(',');
+                  var edge_colors = stepMessage[4].split(',');
+                  stepCounter++;
+                  console.log(stepCounter);
+                  for(i=0;i<colors.length-1;i++) {
+                    cy.nodes('[id = "' + i +  '"]').style('background-color', distinctColors[Object.keys(distinctColors)[colors[i]]]);
+                  }
+                  for(i=0;i<edge_colors.length-1;i++) {
+                    cy.edges('[id = "' + i +  '"]').style('color', distinctColors[Object.keys(distinctColors)[edge_colors[i]]]);
+                  }
+                }
+              }
+            }
+            myMove(data);
+            }
+//            console.log(arr);
+//            for(var i=0;i<arr.length;i++) {
+//                var colors = arr[i].split("+++")[2].split(',');
+//                console.log(colors);
+//                for(i=0;i<colors.length-1;i++) {
+//                    cy.nodes('[id = "' + i +  '"]').style('background-color', 'green');
+//                }
+        //}
+        return;
+            report_results = data;
+            if (data.titles != undefined) {
+                $('#reportResults').html(JSON.stringify(data));
+                var titles = data.titles.substr(1, data.titles.indexOf("]") - 1);
+                var tts = titles.split(",");
+                var builtHTML = "<table class='fixed_headers'><thead><tr>";
+                tts.forEach(function (t) {
+                    builtHTML += "<th>" + t + "</th>";
+                });
+                var results = JSON.parse(data.results);
+                builtHTML += "</tr></thead><tbody>";
+                results.forEach(function (row) {
+                    builtHTML += "<tr>";
+                    row.forEach(function (col) {
+                        builtHTML += "<td>" + col + "</td>";
+                    })
+                    builtHTML += "</tr>";
+                });
+                builtHTML += "</tr></tbody></table>";
+                $('#results-body').html(builtHTML);
+            } else {
+                var res = "";
+                Object.keys(data).forEach(function (t) {
+                    res+= t + ":" + JSON.stringify(data[t]) + ",";
+                });
+                res = res.substr(0,res.length-1);
+                $('#reportResults').html(res);
+                $('#results-body').html(res);
+            }
+
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        });
+}
+
+
 function Report() {
     var type = $('#graphType').find('option:selected').text();
     $('#reportResults').html('computing...');
@@ -128,20 +307,17 @@ function Report() {
     if (reportProps == "") {
         reportProps = "no";
     }
-    var dd = JSON.stringify({
-        "type": "report",
-        "name": $('#reports').find('option:selected').text(),
-        "graph": $('#categories').find('option:selected').text(),
-        "uuid": uuid,
-        "propsKeys": $('#reportPropsKeys').html(),
-        "propsVals": $('#reportPropsVals').val(),
-        "directed": type
-    });
-    console.log(dd);
-
     jQuery.ajax({
-        url: serverAddr+'add', type: 'POST', contentType: 'application/json',
-        data: dd,
+        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
+        data: JSON.stringify({
+            "type": "report",
+            "name": $('#reports').find('option:selected').text(),
+            "graph": $('#gens').find('option:selected').text(),
+            "uuid": uuid,
+            "propsKeys": $('#reportPropsKeys').html(),
+            "propsVals": $('#reportPropsVals').val(),
+            "directed": type
+        }),
         dataType: 'json'
     })
     //
@@ -188,31 +364,30 @@ function Report() {
         });
 }
 
-function load_generator(isDraw,webgl,ended) {
+function load_generator(isDraw,webgl,ended,threed) {
     var lay = $('#layouts').find('option:selected').text();
     var type = $('#graphType').find('option:selected').text();
     if (lay == "Botanical Tree") {
         drawBotanical();
         return;
     }
-    var dd = JSON.stringify({
-        "type": "gen",
-        "name": $('#categories').find('option:selected').text(),
-        "graph": $('#categories').find('option:selected').text(),
-        "uuid": uuid,
-        "propsKeys": $('#props_keys').html(),
-        "propsVals": $('#props_vals').val(),
-        "directed": type
-    });
-    console.log(dd);
     jQuery.ajax({
-        url: serverAddr+'add', type: 'POST', contentType: 'application/json',
-        data: dd,
+        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
+        data: JSON.stringify({
+            "type": "gen",
+            "name": $('#gens').find('option:selected').text(),
+            "graph": $('#gens').find('option:selected').text(),
+            "uuid": uuid,
+            "propsKeys": $('#props_keys').html(),
+            "propsVals": $('#props_vals').val(),
+            "directed": type
+        }),
         dataType: 'json'
     })
         .done(function (data) {
             if (isDraw) {
-                if (!webgl) {
+                console.log(webgl + " very well  " + threed);
+                if (!webgl && !threed) {
                     $('#parent_canvas').empty();
                     $('#parent_canvas').append("<div id='canvas' class='main'>")
                     initCytoscape(undirected, serverAddr, uuid);
@@ -226,9 +401,64 @@ function load_generator(isDraw,webgl,ended) {
                     setVertexIds();
                     applyLayout();
                     ended();
-                } else {
+                } else if(!threed) {
                     viva_action(data);
                     ended();
+                } else {
+
+                    const gData = {
+                      nodes: data.nodes.map(i => ({ id: i.data.id })),
+                      links: data.edges.map(i => ({ source: i.data.source, target:i.data.target} ))
+                    };
+
+                    const Graph = ForceGraph3D()
+                      (document.getElementById('canvas'))
+                        .graphData(gData);
+                    ended();
+                    Graph.onEngineStop(function(){
+                    let { nodes, links } = Graph.graphData();
+                    str = "distance between edge nodes:\n";
+                    console.log(links);
+                    links.forEach(function(e) {
+                        var src = e.source.id;
+                        var tgt = e.target.id;
+                        var n1 = nodes[src];
+                        var n2 = nodes[tgt];
+                        dist = Math.sqrt(
+                             Math.pow(n1.x-n2.x,2) +
+                             Math.pow(n1.y-n2.y,2) +
+                             Math.pow(n1.z-n2.z,2)
+                        );
+                        str += (dist +"").substr(0,6) + ", ";
+                    });
+
+                    var min_dist = 10000;
+                    nodes.forEach(function(n1) {
+                      nodes.forEach(function(n2) {
+                        if(n1.id > n2.id) {
+                          dist = Math.sqrt(
+                            Math.pow(n1.x-n2.x,2) +
+                            Math.pow(n1.y-n2.y,2) +
+                            Math.pow(n1.z-n2.z,2)
+                          );
+                          if(min_dist > dist)
+                            min_dist = dist;
+                        }
+                      });
+                    });
+                    str += "\nminimum distance between all nodes:\n" + min_dist;
+                    str += "\ncoordinates:\n";
+                    nodes.forEach(function(n) {
+                        sx = (n.x + "").substr(0,6);
+                        sy = (n.y + "").substr(0,6);
+                        sz = (n.z + "").substr(0,6);
+                        str += sx + ", " + sy + ", " + sz + "\n";
+                    });
+                    $("#vis_inf").html(str)
+                    });
+
+//                    console.log(nodes );
+
                 }
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -244,9 +474,16 @@ function load_generator(isDraw,webgl,ended) {
     // })
 }
 
+function getSelectedReportCategory() {
+    return $('#reportCategories').find('option:selected').text();
+}
 
-function getSelectedCategory() {
-    return $('#categories').find('option:selected').text();
+function getSelectedCategory1() {
+    return $('#categories1').find('option:selected').text();
+}
+
+function getSelectedGenerator() {
+    return $('#gens').find('option:selected').text();
 }
 
 function getSelectedReport() {
@@ -337,7 +574,18 @@ function selectLoader() {
     }
 }
 
-function load_graph(type,isDraw,webgl,ended) {
+function load_free(ended) {
+//if($('#parent_canvas').find("div").length == 1) {
+    $('#parent_canvas').empty();
+    $('#parent_canvas').append("<div id='canvas' class='main'>")
+    initCytoscape(undirected, serverAddr, uuid);
+    cy.elements().remove();
+    cy.layout({name: 'cose'}).run();
+//}
+ended();
+}
+
+function load_graph(type,isDraw,webgl,ended,threed) {
     var str = $('#' + type + 'string').val().replace(/\n/g, "-");
     var isDirected = $('#graphType').find('option:selected').text();
     var adjMatType = $('#adjmat-type').find('option:selected').val();
@@ -356,7 +604,7 @@ function load_graph(type,isDraw,webgl,ended) {
     server(serverAddr + 'loadGraph' + '/' + type + "--"
         + str + "--" + isDirected + "--" + uuid, function (data) {
         if (isDraw) {
-            if(!webgl) {
+            if(!webgl && !threed) {
                 // cy = cytoscape({
                 //     container: document.getElementById('canvas'),
                 //     style: [ // the stylesheet for the graph
@@ -379,9 +627,20 @@ function load_graph(type,isDraw,webgl,ended) {
                 cy.add(edges);
                 cy.layout({name: 'cose'}).run();
                 ended();
-            } else {
+            } else if (!threed) {
                 viva_action(data);
                 ended();
+            } else {
+               const gData = {
+                  nodes: data.nodes.map(i => ({ id: i.data.id })),
+                  links: data.edges.map(i => ({ source: i.data.source, target:i.data.target} ))
+                };
+
+                const Graph = ForceGraph3D()
+                  (document.getElementById('canvas'))
+                    .graphData(gData);
+                ended();
+
             }
         }
     });

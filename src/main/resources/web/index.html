@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <link rel="stylesheet" href="css/font-awesome.css"/>
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="compiled-css/panda.css"/>
@@ -9,13 +8,14 @@
     <link rel="stylesheet" href="css/jquery.qtip.min.css">
     <script src="cytoscape321.js"></script>
     <script src="cytoscape-canvas.js"></script>
-    <!--<script src="js/cola.js"></script>-->
-    <!--<script src="js/cytoscape-cola.js"></script>-->
+    <script src="js/cola.js"></script>
+    <script src="js/cytoscape-cola.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/jquery.qtip.min.js"></script>
     <script src="paper-full.min.js"></script>
     <script src="drawBotanical.js"></script>
-    <!--<script src="js/panda.js"></script>-->
+    <script src="js/panda.js"></script>
+    <script src="js/3d-force-graph.min.js"></script>
     <title>GraphTea</title>
 </head>
 <body>
@@ -46,7 +46,10 @@
         <!--<button onclick="selectLoader()">Select</button>-->
         <div id="generators" class="loaders">
             <p id="strings-generator"></p>
-            <select id="categories">
+            Category: <select id="categories1">
+                <option>Select</option>
+            </select><br/>
+            Generator: <select id="gens">
                 <option>Select</option>
             </select>
             <div class="tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -118,13 +121,18 @@
             <option>Clear Canvas</option>
             <option>Canvas to Image</option>
             <option>WebGL</option>
+            <option>3D Force Directed</option>
         </select>
         <button onclick="do_actions()">Go</button>
         <i class='fa fa-spinner fa-spin' id="loading-go" style="visibility: hidden;"></i>
         <div style="visibility: hidden" id="act_name">gen</div>
+        <div style="font-size: 15px">Visualization Information:<br/>
+            <textarea name="TextVis" cols="35" rows="4" id="vis_inf"></textarea>
+        </div>
         <hr>
         <p id="strings-report"></p>
-        <select id="reports"></select>
+        Category: <select id="reportCategories"></select><br/>
+        Report: <select id="reports"></select>
         <div id="reportProps"></div>
         <button onclick="Report()">Report</button>
         <div class="tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -149,7 +157,15 @@
             <textarea name="Text2" cols="35" rows="4" id="outputResults"></textarea>
         </div>
         <hr>
-
+        <p id="strings-graph-algorithms"></p>
+        <select id="graphAlgorithms"></select><br/>
+        <button onclick="graphAlgorithm('load_algorithm')">Load Algorithm</button>
+        <button onclick="graphAlgorithm('start')">Go</button>
+        <div class="tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span id="tooltiptextGraphAlgorithm" class="tooltiptext">A brief description</span>
+        </div>
+        <textarea name="Text22" cols="35" rows="6" id="algResults"></textarea>
+        <hr>
         <p id="strings-graph-actions"></p>
         <select id="graphActions"></select>
         <div id="graphActionsProps"></div>
@@ -187,7 +203,6 @@
 <script src="cytoscape/jquery.cytoscape.js-edgehandles.js"></script>
 <script src="js/server.js"></script>
 <script src="js/cytoscape_related_functions.js"></script>
-<script src="globals.js"></script>
 <script src="index.js"></script>
 <script src="modal.js"></script>
 <script src="strings.js"></script>
