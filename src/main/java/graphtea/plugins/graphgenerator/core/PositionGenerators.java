@@ -22,6 +22,16 @@ public class PositionGenerators {
         }
         return ret;
     }
+
+    public static GPoint[] Gline(int xOffset, int yOffset, int w, int h, int n) {
+        GPoint[] ret = new GPoint[n];
+        int dx = w / n;
+        int dy = h / n;
+        for (int i = 0; i < n; i++) {
+            ret[i] = new GPoint(xOffset + i * dx, yOffset + i * dy);
+        }
+        return ret;
+    }
 //
 //    public static GPoint[] line(int xOffset, int yOffset, int w, int h, int n) {
 //        GPoint[] ret = new GPoint[n];
