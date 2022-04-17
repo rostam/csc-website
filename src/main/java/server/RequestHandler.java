@@ -1,6 +1,5 @@
 package server;
 
-import graphtea.extensions.Centrality;
 import graphtea.extensions.G6Format;
 import graphtea.extensions.RandomTree;
 import graphtea.extensions.io.LatexWriter;
@@ -254,11 +253,7 @@ public class RequestHandler {
         String[] infos = info.split("--");
         String name = infos[0];String sessionID = infos[1];
         GraphModel g = Helpers.sessionToGraph.get(sessionID);
-        try {
-            new SaveGraph().write(new File(name+".tea"),g);
-        } catch (GraphIOException e) {
-            throw new RuntimeException(e);
-        }
+        new SaveGraph().write(new File(name+".tea"),g);
         StreamingOutput fileStream = new StreamingOutput() {
             @Override
             public void write(java.io.OutputStream output) throws IOException, WebApplicationException {
@@ -635,20 +630,20 @@ public class RequestHandler {
         int[][] edgeList = rt.getEdgeList();
 //        SyncBurst graph = new SyncBurst(edgeList, maxIter, false, 4, false);
 //        double [][] pos = graph.Cir_Force_Free();
-        Centrality p = new Centrality(edgeList);  // for degree of centrality  Note: not necessary for drawing
-        double [] res = p.Betweenness_Centrality(maxIter);
-        Vector<Double> v = new Vector<>();
-        for(double d : res) {
-            v.add(d);
-        }
-        int highBCVertex = v.indexOf(Collections.max(v));
+//        Centrality p = new Centrality(edgeList);  // for degree of centrality  Note: not necessary for drawing
+//        double [] res = p.Betweenness_Centrality(maxIter);
+//        Vector<Double> v = new Vector<>();
+//        for(double d : res) {
+//            v.add(d);
+//        }
+//        int highBCVertex = v.indexOf(Collections.max(v));
         int[][] newEdgeList = new int[2][edgeList[0].length+1];
         for(int i=0;i<edgeList[0].length;i++) {
             newEdgeList[0][i] = edgeList[0][i];
             newEdgeList[1][i] = edgeList[1][i];
         }
         newEdgeList[0][edgeList[0].length] = maxIter;
-        newEdgeList[1][edgeList[0].length] = highBCVertex;
+//        newEdgeList[1][edgeList[0].length] = highBCVertex;
 
 //        double [][] newPos = new double[2][pos[0].length+1];
 //        for(int i=0;i<pos[0].length;i++) {
@@ -665,7 +660,7 @@ public class RequestHandler {
     /**
      * Get the complete graph in cytoscape-conform form.
      *
-     * @param strings name of the database
+//     * @param strings name of the database
      * @return Response containing the graph as a JSON, in cytoscape conform format.
      * @throws JSONException if JSON creation fails
      * @throws IOException   if reading fails

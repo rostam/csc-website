@@ -18,8 +18,6 @@ import graphtea.plugins.graphgenerator.core.extension.GraphGeneratorExtension;
 
 import java.util.Arrays;
 
-import java.awt.*;
-
 /**
  * @author Ali Rostami
  * QhcGGc@?GC_@?@?C_?G?CO?A???
@@ -69,9 +67,9 @@ public class ExampleChainGraph3 implements GraphGeneratorExtension, Parametrizab
         return result;
     }
 
-    public Point[] getVertexPositions() {
-        Point[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        Point[] p2 = PositionGenerators.line(20, 5, 10000, 10000, n);
+    public GPoint[] getVertexPositions() {
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
+        GPoint[] p2 = PositionGenerators.line(20, 5, 10000, 10000, n);
         return concatWithArrayCopy(p1,p2);
     }
 

@@ -19,8 +19,6 @@ import graphtea.plugins.graphgenerator.core.extension.GraphGeneratorExtension;
 import java.util.Arrays;
 import java.util.Vector;
 
-import java.awt.*;
-
 /**
  * @author Ali Rostami
 
@@ -30,12 +28,6 @@ public class ExampleChainGraph4 implements GraphGeneratorExtension, Parametrizab
     @Parameter(name = "N")
     public static Integer n = 5;
     Vertex[] v;
-
-    GraphModel g;
-
-    public void setWorkingGraph(GraphModel g) {
-        this.g = g;
-    }
 
     public String getName() {
         return "Chain Graph 4";
@@ -86,10 +78,10 @@ public class ExampleChainGraph4 implements GraphGeneratorExtension, Parametrizab
         return result;
     }
 
-    public Point[] getVertexPositions() {
-        Point[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        Point[] p2 = PositionGenerators.line(4000, 5, 10000, 10000, n);
-        Point[] p3 = PositionGenerators.line(2000, 800, 10000, 10000, n-1);
+    public GPoint[] getVertexPositions() {
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
+        GPoint[] p2 = PositionGenerators.line(4000, 5, 10000, 10000, n);
+        GPoint[] p3 = PositionGenerators.line(2000, 800, 10000, 10000, n-1);
         return concatWithArrayCopy(concatWithArrayCopy(p1,p2), p3);
     }
 

@@ -15,12 +15,13 @@ import graphtea.plugins.graphgenerator.GraphGenerator;
 import graphtea.plugins.graphgenerator.core.PositionGenerators;
 import graphtea.plugins.graphgenerator.core.SimpleGeneratorInterface;
 import graphtea.plugins.graphgenerator.core.extension.GraphGeneratorExtension;
-import java.awt.*;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
- * @author Ali Rostami
+ * @author azin azadi
 
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
@@ -29,19 +30,12 @@ public class ExampleChainGraph1 implements GraphGeneratorExtension, Parametrizab
     public static Integer n = 4;
     Vertex[] v;
 
-    GraphModel g;
-
     public String getName() {
         return "Chain Graph 1";
     }
 
     public String getDescription() {
         return "Chain Graph 1";
-    }
-
-    @Override
-    public void setWorkingGraph(GraphModel g) {
-        this.g = g;
     }
 
     public Vertex[] getVertices() {
@@ -71,9 +65,9 @@ public class ExampleChainGraph1 implements GraphGeneratorExtension, Parametrizab
         return result;
     }
 
-    public Point[] getVertexPositions() {
-        Point[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        Point[] p2 = PositionGenerators.line(1000, 5, 10000, 10000, n);
+    public GPoint[] getVertexPositions() {
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
+        GPoint[] p2 = PositionGenerators.line(20, 5, 10000, 10000, n);
         return concatWithArrayCopy(p1,p2);
     }
 
