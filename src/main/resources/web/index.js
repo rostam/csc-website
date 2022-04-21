@@ -308,7 +308,7 @@ function Report() {
         reportProps = "no";
     }
     jQuery.ajax({
-        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
+        url: serverAddr+ '/add', type: 'POST', contentType: 'application/json',
         data: JSON.stringify({
             "type": "report",
             "name": $('#reports').find('option:selected').text(),
@@ -372,7 +372,7 @@ function load_generator(isDraw,webgl,ended,threed) {
         return;
     }
     jQuery.ajax({
-        url: 'http://0.0.0.0:2342/add', type: 'POST', contentType: 'application/json',
+        url: serverAddr+'add', type: 'POST', contentType: 'application/json',
         data: JSON.stringify({
             "type": "gen",
             "name": $('#gens').find('option:selected').text(),
