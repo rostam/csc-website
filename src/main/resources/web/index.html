@@ -128,7 +128,7 @@
         <div style="visibility: hidden" id="act_name">gen</div>
         <div style="font-size: 15px">Visualization Information:<br/>
             <textarea name="TextVis" cols="35" rows="4" id="vis_inf"></textarea>
-        </div>
+        </div><button id="compute_stat_on_vis">Compute</button>
         <hr>
         <p id="strings-report"></p>
         Category: <select id="reportCategories"></select><br/>
@@ -183,6 +183,9 @@
         <canvas id="paperCanvas"></canvas>
     </div>
 </div>
+<div id="right_tools" style="right:0px;top:0px;position: absolute;width:40em;">
+
+</div>
 
 <!-- The Modal -->
 <!--<div id="myModal" class="modal">-->
@@ -203,6 +206,7 @@
 <script src="cytoscape/jquery.cytoscape.js-edgehandles.js"></script>
 <script src="js/server.js"></script>
 <script src="js/cytoscape_related_functions.js"></script>
+<script src="js/dat.gui.js"></script>
 <script src="js/3d_force_graph_action.js"></script>
 <script src="index.js"></script>
 <script src="modal.js"></script>
