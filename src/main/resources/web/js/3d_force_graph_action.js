@@ -1,6 +1,16 @@
 var gui = new dat.GUI({ autoPlace: false });//new dat.GUI({name: 'My GUI', });
 //gui.domElement.id = "parent_canvas";
 var vis = gui.addFolder('Visualization');
+
+var defaultVisController = {
+    // defaults from https://github.com/anvaka/ngraph.physics.simulator/blob/master/index.js
+              timeStep: 20,
+              gravity: -1.2,
+              theta: 0.8,
+              springLength: 30,
+              springCoefficient: 0.0008,
+              dragCoefficient: 0.02
+};
 //var dragCoefficientController = {dragCoeffiecient: 0.2};
 var visController = {
     // defaults from https://github.com/anvaka/ngraph.physics.simulator/blob/master/index.js
@@ -11,10 +21,17 @@ var visController = {
               springCoefficient: 0.0008,
               dragCoefficient: 0.02
 };
-vis.add(visController,'dragCoefficient');
-vis.add(visController,'gravity');
-vis.add(visController,'springCoefficient');
-vis.add(visController,'springLength');
+dg =vis.add(visController,'dragCoefficient');
+gr = vis.add(visController,'gravity');
+sc = vis.add(visController,'springCoefficient');
+sl = vis.add(visController,'springLength');
+var buttonSetDefault = { Reset:function(){
+  gui.__folders.Visualization.__controllers[0].setValue(defaultVisController.dragCoefficient);
+  gui.__folders.Visualization.__controllers[1].setValue(defaultVisController.gravity);
+  gui.__folders.Visualization.__controllers[2].setValue(defaultVisController.springCoefficient);
+  gui.__folders.Visualization.__controllers[3].setValue(defaultVisController.springLength);
+}};
+gui.add(buttonSetDefault, 'Reset')
 $('#right_tools').append(gui.domElement);
 
 function threed_force_graph_action(data,ended) {
