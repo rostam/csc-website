@@ -61,7 +61,7 @@ function threed_force_graph_action(data,ended) {
 //                        .backgroundColor('#ffffff')
 //                        nodeColor(node => highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
             .nodeOpacity(1)
-            .nodeColor(node => selectedNodes.has(node) ? 'yellow' : 'gray')
+            .nodeColor(node => selectedNodes.has(node) ? 'red' : 'yellow')
             .linkColor('rgba(200,200,200,1)')
                     .linkWidth(2)
                     .linkOpacity(1)
