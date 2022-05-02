@@ -51,6 +51,7 @@ function threed_force_graph_action(data,ended) {
           links: data.edges.map(i => ({ source: i.data.source, target:i.data.target} ))
         };
 
+    tick = 0;
     let selectedNodes = new Set();
         const Graph = ForceGraph3D()
           (document.getElementById('canvas'))
@@ -75,7 +76,12 @@ function threed_force_graph_action(data,ended) {
                               }
 
                               Graph.nodeColor(Graph.nodeColor()); // update color of selected nodes
-                            })
+                            }).onEngineTick(function(){
+                                tick++;
+                                if(tick % 30 == 0) {
+                                  stats(Graph,selectedNodes);
+                                }
+                            });
 //                     .onLinkClick((node, event) => {
 //
 //                      });
@@ -111,6 +117,11 @@ function threed_force_graph_action(data,ended) {
 //                                });
         ended();
         $('#compute_stat_on_vis').click(function() {
+            stats(Graph);
+        });
+}
+
+function stats(Graph,selectedNodes) {
 //        });
 //        Graph.onEngineStop(function(){
 //        return;
@@ -217,5 +228,4 @@ function threed_force_graph_action(data,ended) {
 
 
         $("#vis_inf").html(str)
-        });
 }
