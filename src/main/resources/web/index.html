@@ -122,6 +122,7 @@
             <option>Canvas to Image</option>
             <option>WebGL</option>
             <option>3D Force Directed</option>
+<!--            <option>3D Force Directed D3</option>-->
         </select>
         <button onclick="do_actions()">Go</button>
         <i class='fa fa-spinner fa-spin' id="loading-go" style="visibility: hidden;"></i>
@@ -129,6 +130,7 @@
         <div style="font-size: 15px">Visualization Information:<br/>
             <textarea name="TextVis" cols="35" rows="15" id="vis_inf"></textarea>
         </div><button id="compute_stat_on_vis">Compute</button>
+        <button id="stopRendering">Stop Rendering</button>
         <hr>
         <p id="strings-report"></p>
         Category: <select id="reportCategories"></select><br/>

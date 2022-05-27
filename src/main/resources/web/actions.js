@@ -13,13 +13,13 @@ function do_actions() {
     $('#parent_canvas').append('<div id="canvas" class="main"></div>');
     startLoaderIcon();
     if (action == "Load and Draw") {
-        if (act_name == 'gen') load_generator(true, false, endLoaderIcon,false);
+        if (act_name == 'gen') load_generator(true, false, endLoaderIcon,false,false);
         else if(act_name == 'free') load_free(endLoaderIcon);
-        else load_graph(act_name, true, false, endLoaderIcon,false);
+        else load_graph(act_name, true, false, endLoaderIcon,false,false);
     } else if (action == "Load Only") {
-        if (act_name == 'gen') load_generator(false, false, endLoaderIcon, false);
+        if (act_name == 'gen') load_generator(false, false, endLoaderIcon, false,false);
         else if(act_name == 'free') load_free(endLoaderIcon);
-        else load_graph(act_name, false, false, endLoaderIcon, false);
+        else load_graph(act_name, false, false, endLoaderIcon, false,false);
     } else if (action == "Fit Canvas") {
         cy.fit();
     } else if (action == "Clear Canvas") {
@@ -28,13 +28,17 @@ function do_actions() {
         var jpg64 = cy.jpg();
         window.open(jpg64);
     } else if (action == "WebGL") {
-        if (act_name == 'gen') load_generator(true, true, endLoaderIcon,false);
+        if (act_name == 'gen') load_generator(true, true, endLoaderIcon,false,false);
         else if(act_name == 'free') load_free(endLoaderIcon)
-        else load_graph(act_name, true, true, endLoaderIcon,false);
+        else load_graph(act_name, true, true, endLoaderIcon,false,false);
     } else if (action == "3D Force Directed") {
-        if (act_name == 'gen') load_generator(true, true, endLoaderIcon, true);
+        if (act_name == 'gen') load_generator(true, true, endLoaderIcon, true,false);
         else if(act_name == 'free') load_free(endLoaderIcon)
-        else load_graph(act_name, true, true, endLoaderIcon, true);
+        else load_graph(act_name, true, true, endLoaderIcon, true,false);
+    } else if (action == "3D Force Directed D3") {
+              if (act_name == 'gen') load_generator(true, true, endLoaderIcon, true,true);
+              else if(act_name == 'free') load_free(endLoaderIcon)
+              else load_graph(act_name, true, true, endLoaderIcon, true,true);
     }
 
     // trigger the graph creation event on the document node

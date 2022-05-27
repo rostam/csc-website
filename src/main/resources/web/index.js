@@ -364,7 +364,7 @@ function Report() {
         });
 }
 
-function load_generator(isDraw,webgl,ended,threed) {
+function load_generator(isDraw,webgl,ended,threed,d33d) {
     var lay = $('#layouts').find('option:selected').text();
     var type = $('#graphType').find('option:selected').text();
     if (lay == "Botanical Tree") {
@@ -405,7 +405,10 @@ function load_generator(isDraw,webgl,ended,threed) {
                     viva_action(data);
                     ended();
                 } else {
+                    if(!d33d)
                     threed_force_graph_action(data,ended);
+                    else
+                    threed_force_graph_action_d33d(data,ended);
                 }
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -532,7 +535,7 @@ function load_free(ended) {
 ended();
 }
 
-function load_graph(type,isDraw,webgl,ended,threed) {
+function load_graph(type,isDraw,webgl,ended,threed,d33d) {
     var str = $('#' + type + 'string').val().replace(/\n/g, "-");
     var isDirected = $('#graphType').find('option:selected').text();
     var adjMatType = $('#adjmat-type').find('option:selected').val();
@@ -578,7 +581,10 @@ function load_graph(type,isDraw,webgl,ended,threed) {
                 viva_action(data);
                 ended();
             } else {
+                if(!d33d)
                 threed_force_graph_action(data,ended);
+                else
+                threed_force_graph_action_d33d(data,ended);
             }
         }
     });
