@@ -149,6 +149,7 @@ function threed_force_graph_action(data,ended) {
         });
 
         $('#resumeAnimation').click(function(){
+            console.log('test');
             Graph.resumeAnimation();
         });
 }
