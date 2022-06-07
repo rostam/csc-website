@@ -62,6 +62,7 @@ cooldownTime = {cooldownTime : 15000};
 gui.add(buttonSetDefault, 'Reset')
 gui.add(localSave,'LocalSave')
 gui.add(loadFromLocalSave, 'LoadFromLocalSave');
+gui.add(cooldownTime, 'cooldownTime')
 $('#right_tools').append(gui.domElement);
 let nodesWithTheSpecificPropertyDiscussedWithMaxwell = new Set();
 function threed_force_graph_action(data,ended) {
@@ -283,7 +284,7 @@ function stats(Graph,selectedNodes) {
                         });
 
                     if(!islink) {
-                    cnt_nonlink++;
+                      cnt_nonlink++;
                       dist = Math.sqrt(
                         Math.pow(n1.__threeObj.position.x-n2.__threeObj.position.x,2) +
                         Math.pow(n1.__threeObj.position.y-n2.__threeObj.position.y,2) +
