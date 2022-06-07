@@ -230,6 +230,8 @@ function threed_force_graph_action_d33d(data,ended) {
 }
 
 function stats(Graph,selectedNodes) {
+        console.log(Graph.graphData());
+        console.log(Graph.ngraphPhysics());
         let { nodes, links } = Graph.graphData();
         var min_dist = 10000;
         var max_dist = 0;
