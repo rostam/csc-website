@@ -83,9 +83,10 @@ function threed_force_graph_action(data,ended) {
 //                        nodeColor(node => highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
             .nodeOpacity(1)
             .nodeColor(function(node){
-                    if(selectedNodes.has(node)) return 'red';
-                    else if (nodesWithTheSpecificPropertyDiscussedWithMaxwell.has(node)) return 'green';
-                    else return 'yellow';})
+                    if(selectedNodes.has(node)) return 'yellow';
+//                    else if (nodesWithTheSpecificPropertyDiscussedWithMaxwell.has(node)) return 'green';
+                    else return 'red';
+                    })
             .linkColor('rgba(200,200,200,1)')
                     .linkWidth(2)
                     .linkOpacity(1)
@@ -150,7 +151,6 @@ function threed_force_graph_action(data,ended) {
         });
 
         $('#resumeAnimation').click(function(){
-            console.log('test');
             Graph.resumeAnimation();
         });
 }
