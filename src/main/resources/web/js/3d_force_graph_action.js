@@ -65,19 +65,33 @@ gui.add(loadFromLocalSave, 'LoadFromLocalSave');
 gui.add(cooldownTime, 'cooldownTime')
 $('#right_tools').append(gui.domElement);
 let nodesWithTheSpecificPropertyDiscussedWithMaxwell = new Set();
+Graph1 = {}
 function threed_force_graph_action(data,ended) {
         const gData = {
           nodes: data.nodes.map(i => ({ id: i.data.id })),
           links: data.edges.map(i => ({ source: i.data.source, target:i.data.target} ))
         };
-
+    ggdata = {}
     tick = 0;
     let selectedNodes = new Set();
-        const Graph = ForceGraph3D()
+    Graph1 = ForceGraph3D()
+              (document.getElementById('canvas'))
+              .forceEngine('ngraph')
+//                .ngraphPhysics(visController)
+                .graphData(gData).onEngineTick(function(){
+                       ggData = Graph1.graphData();
+                     //  ggData.nodes =
+                      // ggData.nodes.map(i => ({id: i.id, position: {x: i.__threeObj.position.x, y:i.__threeObj.position.y, z: i.__threeObj.position.z}}));
+                })
+                .onEngineStop(function(){
+                console.log(Graph1.graphData());
+                console.log(ggData);
+                ggData.nodes =  ggData.nodes.map(i => ({id: i.id, position: i.__threeObj.position}));
+        Graph = ForceGraph3D()
           (document.getElementById('canvas'))
           .forceEngine('ngraph')
             .ngraphPhysics(visController)
-            .graphData(gData)
+            .graphData(ggData)
             .cooldownTime(cooldownTime.cooldownTime)
 //                        .backgroundColor('#ffffff')
 //                        nodeColor(node => highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
@@ -91,24 +105,26 @@ function threed_force_graph_action(data,ended) {
                     .linkWidth(2)
                     .linkOpacity(1)
                     .onNodeClick((node, event) => {
-                              if (event.ctrlKey || event.shiftKey || event.altKey) { // multi-selection
-                                selectedNodes.has(node) ? selectedNodes.delete(node) : selectedNodes.add(node);
-                              } else { // single-selection
-                                const untoggle = selectedNodes.has(node) && selectedNodes.size === 1;
-                                selectedNodes.clear();
-                                !untoggle && selectedNodes.add(node);
-                              }
-
-                               // update color of selected nodes
+                    node.translateX(100);
+//                    console.log(node);
+//                              if (event.ctrlKey || event.shiftKey || event.altKey) { // multi-selection
+//                                selectedNodes.has(node) ? selectedNodes.delete(node) : selectedNodes.add(node);
+//                              } else { // single-selection
+//                                const untoggle = selectedNodes.has(node) && selectedNodes.size === 1;
+//                                selectedNodes.clear();
+//                                !untoggle && selectedNodes.add(node);
+//                              }
+//
+//                               // update color of selected nodes
                             }).onEngineTick(function(){
                                 tick++;
                                 if(tick % 30 == 0) {
                                   stats(Graph,selectedNodes);
                                 }
-                            });
+                            })
 //                     .onLinkClick((node, event) => {
-//
-//                      });
+//                            console.log(node);
+//                      })
 //                                .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)
 //                                .linkDirectionalParticleWidth(4)
 //                                .onNodeHover(node => {
@@ -153,6 +169,7 @@ function threed_force_graph_action(data,ended) {
         $('#resumeAnimation').click(function(){
             Graph.resumeAnimation();
         });
+        })
 }
 
 function threed_force_graph_action_d33d(data,ended) {
@@ -230,8 +247,8 @@ function threed_force_graph_action_d33d(data,ended) {
 }
 
 function stats(Graph,selectedNodes) {
-        console.log(Graph.graphData());
-        console.log(Graph.ngraphPhysics());
+//        console.log(Graph.graphData());
+//        console.log(Graph.ngraphPhysics());
         let { nodes, links } = Graph.graphData();
         var min_dist = 10000;
         var max_dist = 0;
