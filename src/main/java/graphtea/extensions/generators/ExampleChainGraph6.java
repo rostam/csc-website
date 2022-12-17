@@ -98,7 +98,7 @@ public class ExampleChainGraph6 implements GraphGeneratorExtension, Parametrizab
 
     @Override
     public String getCategory() {
-        return "Maxwell Examples";
+        return "Examples";
     }
 
     public static void main(String[] args) {

@@ -29,7 +29,7 @@ $.get(serverAddr + 'graphs/')
         });
 
         Object.keys(category_generators).forEach(function (d) {
-            categoriesSelect.append('<option>' + d + '</option>');
+//            categoriesSelect.append('<option>' + d + '</option>');
 //            category_generators[d].forEach(function(cg) {
 //                generatorSelect.append('<option>' + cg + '</option>');
 //            });

@@ -364,15 +364,15 @@ function stats(Graph,selectedNodes) {
 //        avg_dist_selected_nodes = sum_dist_selected_nodes/selectedNodes.size;
 
         str = "T...T:\nMinimum: " + min_dist;
-        str += "\nMaximum: " + max_dist;
-        str += "\nAverage: " + avg;
+//        str += "\nMaximum: " + max_dist;
+//        str += "\nAverage: " + avg;
 
         str += "\n\nT-T:\nMinimum: " + min_dist_e;
         str += "\nMaximum: " + max_dist_e;
         str += "\nAverage: " + avg_dist_e;
 
-        str += "\n\nDistance between selected nodes:\nMinimum: " + min_dist_selected_nodes;
-        str += "\nMaximum: " + max_dist_selected_nodes;
+//        str += "\n\nDistance between selected nodes:\nMinimum: " + min_dist_selected_nodes;
+//        str += "\nMaximum: " + max_dist_selected_nodes;
 //        str += "\nAverage: " + avg_dist_selected_nodes;
 
 
