@@ -17,27 +17,27 @@ import graphtea.plugins.graphgenerator.core.SimpleGeneratorInterface;
 import graphtea.plugins.graphgenerator.core.extension.GraphGeneratorExtension;
 
 import java.util.Arrays;
-import java.util.Vector;
 
 /**
  * @author azin azadi
 
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
-public class ExampleChainGraph2 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
+public class ChainGraph1 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
     @Parameter(name = "N")
-    public static Integer n = 9;
+    public static Integer n = 4;
     Vertex[] v;
 
     public String getName() {
-        return "Chain Graph 2";
+        return "Chain Gr:aph 1";
     }
 
     public String getDescription() {
-        return "Chain Graph 2";
+        return "Chain Graph 1";
     }
 
     public Vertex[] getVertices() {
+
         Vertex[] ret = new Vertex[2*n];
         for (int i = 0; i < 2*n; i++)
             ret[i] = new Vertex();
@@ -46,22 +46,15 @@ public class ExampleChainGraph2 implements GraphGeneratorExtension, Parametrizab
     }
 
     public Edge[] getEdges() {
-        Vector<Edge> ret = new Vector<>(); //new Edge[2 * n - 2 + n/3 + 2];
+        Edge[] ret = new Edge[2*n-1];
         for (int i = 0; i < n - 1; i++) {
-            ret.add(new Edge(v[i], v[i + 1]));
+            ret[i] = new Edge(v[i], v[i + 1]);
+        }
+        for (int i = 0; i < n; i++) {
+            ret[n+i-1] = new Edge(v[i], v[n+i]);
         }
 
-        for (int i = 0; i < n - 1; i++) {
-            ret.add(new Edge(v[i + n], v[i + 1 + n]));
-        }
-
-        for (int i = 0; i < n; i = i + 2) {
-            ret.add(new Edge(v[i], v[n + i]));
-        }
-
-        Edge[] ee = new Edge[ret.size()];
-
-        return ret.toArray(ee);
+        return ret;
     }
 
     static <T> T[] concatWithArrayCopy(T[] array1, T[] array2) {
@@ -72,7 +65,7 @@ public class ExampleChainGraph2 implements GraphGeneratorExtension, Parametrizab
 
     public GPoint[] getVertexPositions() {
         GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        GPoint[] p2 = PositionGenerators.line(1000, 5, 10000, 10000, n);
+        GPoint[] p2 = PositionGenerators.line(20, 5, 10000, 10000, n);
         return concatWithArrayCopy(p1,p2);
     }
 
@@ -91,8 +84,8 @@ public class ExampleChainGraph2 implements GraphGeneratorExtension, Parametrizab
      * generates a Path Graph with given parameters
      */
     public static GraphModel generatePath(int n) {
-        ExampleChainGraph2.n = n;
-        return GraphGenerator.getGraph(false, new ExampleChainGraph2());
+        ChainGraph1.n = n;
+        return GraphGenerator.getGraph(false, new ChainGraph1());
     }
 
     @Override
@@ -101,6 +94,6 @@ public class ExampleChainGraph2 implements GraphGeneratorExtension, Parametrizab
     }
 
     public static void main(String[] args) {
-        new ExampleChainGraph2().generateGraph();
+        new ChainGraph1().generateGraph();
     }
 }

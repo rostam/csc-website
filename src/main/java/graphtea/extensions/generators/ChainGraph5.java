@@ -24,7 +24,7 @@ import java.util.Vector;
 
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
-public class ExampleChainGraph5 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
+public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
     @Parameter(name = "N")
     public static Integer n = 5;
     Vertex[] v;
@@ -100,8 +100,8 @@ public class ExampleChainGraph5 implements GraphGeneratorExtension, Parametrizab
      * generates a Path Graph with given parameters
      */
     public static GraphModel generatePath(int n) {
-        ExampleChainGraph5.n = n;
-        return GraphGenerator.getGraph(false, new ExampleChainGraph5());
+        ChainGraph5.n = n;
+        return GraphGenerator.getGraph(false, new ChainGraph5());
     }
 
     @Override
@@ -110,6 +110,6 @@ public class ExampleChainGraph5 implements GraphGeneratorExtension, Parametrizab
     }
 
     public static void main(String[] args) {
-        new ExampleChainGraph5().generateGraph();
+        new ChainGraph5().generateGraph();
     }
 }
