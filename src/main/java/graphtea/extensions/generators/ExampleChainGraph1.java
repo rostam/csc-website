@@ -31,7 +31,7 @@ public class ExampleChainGraph1 implements GraphGeneratorExtension, Parametrizab
     Vertex[] v;
 
     public String getName() {
-        return "Chain Graph 1";
+        return "Chain Gr:aph 1";
     }
 
     public String getDescription() {

@@ -1,6 +1,6 @@
 //var serverAddr = "http://127.0.0.1:2342/";
-var serverAddr = "http://0.0.0.0:2342/";
-//var serverAddr = "http://csc.inf-ra.uni-jena.de:80/";
+//var serverAddr = "http://0.0.0.0:2342/";
+var serverAddr = "http://csc.inf-ra.uni-jena.de:80/";
 var nodeId = 0;
 var cy; //cytoscape object
 var selectedNode;
