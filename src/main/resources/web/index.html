@@ -53,11 +53,11 @@
             Generator: <select id="gens">
                 <option>Select</option>
             </select>
-            <div class="tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                <span id="tooltiptext" class="tooltiptext">A brief description</span>
-            </div>
-            <a id="gen_link" href="" target="_blank">
-                <i class="fa fa-external-link" aria-hidden="true"></i></a>
+<!--            <div class="tooltip"><i class="fa fa-info-circle" aria-hidden="true"></i>-->
+<!--                <span id="tooltiptext" class="tooltiptext">A brief description</span>-->
+<!--            </div>-->
+<!--            <a id="gen_link" href="" target="_blank">-->
+<!--                <i class="fa fa-external-link" aria-hidden="true"></i></a>-->
             <div id="props">
                 <span id="props_keys">n</span> : <input type="text" id="props_vals"
                                                         placeholder="Integer">
@@ -108,14 +108,14 @@
         </div>
         <p id="strings-layout"></p>
 
-        <select id="layouts">
+        <select id="layouts" hidden>
             <option>Force Directed</option>
 <!--            <option>Circular</option>-->
 <!--            <option>Grid</option>-->
 <!--            <option>Preset</option>-->
 <!--            <option>Botanical Tree</option>-->
         </select>
-        <select id="actions">
+        <select id="actions" hidden>
 <!--            <option>Load and Draw</option>-->
 <!--            <option>Load Only</option>-->
 <!--            <option>Fit Canvas</option>-->
@@ -130,9 +130,9 @@
         <div style="visibility: hidden" id="act_name">gen</div>
         <div style="font-size: 15px">Visualization Information:<br/>
             <textarea name="TextVis" cols="35" rows="15" id="vis_inf"></textarea>
-        </div><button id="compute_stat_on_vis">Compute</button>
+<!--        </div><button id="compute_stat_on_vis">Compute</button>-->
         <button id="stopRendering">Stop Rendering</button>
-        <button id="resumeRendering">Resume Rendering</button>
+<!--        <button id="resumeRendering">Resume Rendering</button>-->
         <hr>
 <!--        <p id="strings-report"></p>-->
 <!--        Category: <select id="reportCategories"></select><br/>-->

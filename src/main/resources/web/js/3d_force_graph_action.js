@@ -60,9 +60,9 @@ var loadFromLocalSave = {LoadFromLocalSave:function(){
 }};
 cooldownTime = {cooldownTime : 15000};
 gui.add(buttonSetDefault, 'Reset')
-gui.add(localSave,'LocalSave')
-gui.add(loadFromLocalSave, 'LoadFromLocalSave');
-gui.add(cooldownTime, 'cooldownTime')
+gui.add(localSave,'LocalSave').name("Local save")
+gui.add(loadFromLocalSave, 'LoadFromLocalSave').name("Load from local save");
+gui.add(cooldownTime, 'cooldownTime').name("Cooldown time")
 $('#right_tools').append(gui.domElement);
 let nodesWithTheSpecificPropertyDiscussedWithMaxwell = new Set();
 Graph1 = {}

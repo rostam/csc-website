@@ -25,8 +25,8 @@ import java.util.Vector;
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
 public class ChainGraph2 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
-    @Parameter(name = "N")
-    public static Integer n = 9;
+    @Parameter(name = "Repeat unit (n)")
+    public static Integer repeat_unit_n = 9;
     Vertex[] v;
 
     public String getName() {
@@ -38,8 +38,8 @@ public class ChainGraph2 implements GraphGeneratorExtension, Parametrizable, Sim
     }
 
     public Vertex[] getVertices() {
-        Vertex[] ret = new Vertex[2*n];
-        for (int i = 0; i < 2*n; i++)
+        Vertex[] ret = new Vertex[2* repeat_unit_n];
+        for (int i = 0; i < 2* repeat_unit_n; i++)
             ret[i] = new Vertex();
         v = ret;
         return ret;
@@ -47,16 +47,16 @@ public class ChainGraph2 implements GraphGeneratorExtension, Parametrizable, Sim
 
     public Edge[] getEdges() {
         Vector<Edge> ret = new Vector<>(); //new Edge[2 * n - 2 + n/3 + 2];
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < repeat_unit_n - 1; i++) {
             ret.add(new Edge(v[i], v[i + 1]));
         }
 
-        for (int i = 0; i < n - 1; i++) {
-            ret.add(new Edge(v[i + n], v[i + 1 + n]));
+        for (int i = 0; i < repeat_unit_n - 1; i++) {
+            ret.add(new Edge(v[i + repeat_unit_n], v[i + 1 + repeat_unit_n]));
         }
 
-        for (int i = 0; i < n; i = i + 2) {
-            ret.add(new Edge(v[i], v[n + i]));
+        for (int i = 0; i < repeat_unit_n; i = i + 2) {
+            ret.add(new Edge(v[i], v[repeat_unit_n + i]));
         }
 
         Edge[] ee = new Edge[ret.size()];
@@ -71,13 +71,13 @@ public class ChainGraph2 implements GraphGeneratorExtension, Parametrizable, Sim
     }
 
     public GPoint[] getVertexPositions() {
-        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        GPoint[] p2 = PositionGenerators.line(1000, 5, 10000, 10000, n);
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, repeat_unit_n);
+        GPoint[] p2 = PositionGenerators.line(1000, 5, 10000, 10000, repeat_unit_n);
         return concatWithArrayCopy(p1,p2);
     }
 
     public String checkParameters() {
-        if (n < 0) return "n must be positive";
+        if (repeat_unit_n < 0) return "n must be positive";
         else
             return null;
     }
@@ -91,7 +91,7 @@ public class ChainGraph2 implements GraphGeneratorExtension, Parametrizable, Sim
      * generates a Path Graph with given parameters
      */
     public static GraphModel generatePath(int n) {
-        ChainGraph2.n = n;
+        ChainGraph2.repeat_unit_n = n;
         return GraphGenerator.getGraph(false, new ChainGraph2());
     }
 

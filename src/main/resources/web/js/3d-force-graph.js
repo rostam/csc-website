@@ -48102,8 +48102,6 @@ function InsertStackElement(node, body) {
 
         var pos = node.data.position;
         if (!pos) {
-        console.log("Comes HERE")
-        console.log(node);
           var neighbors = getNeighborBodies(node);
           pos = physicsSimulator.getBestNewBodyPosition(neighbors);
         }

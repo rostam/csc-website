@@ -24,8 +24,8 @@ import java.util.Arrays;
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
 public class ChainGraph1 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
-    @Parameter(name = "N")
-    public static Integer n = 4;
+    @Parameter(name = "Repeat unit (n)")
+    public static Integer repeat_unit_n = 4;
     Vertex[] v;
 
     public String getName() {
@@ -38,20 +38,20 @@ public class ChainGraph1 implements GraphGeneratorExtension, Parametrizable, Sim
 
     public Vertex[] getVertices() {
 
-        Vertex[] ret = new Vertex[2*n];
-        for (int i = 0; i < 2*n; i++)
+        Vertex[] ret = new Vertex[2* repeat_unit_n];
+        for (int i = 0; i < 2* repeat_unit_n; i++)
             ret[i] = new Vertex();
         v = ret;
         return ret;
     }
 
     public Edge[] getEdges() {
-        Edge[] ret = new Edge[2*n-1];
-        for (int i = 0; i < n - 1; i++) {
+        Edge[] ret = new Edge[2* repeat_unit_n -1];
+        for (int i = 0; i < repeat_unit_n - 1; i++) {
             ret[i] = new Edge(v[i], v[i + 1]);
         }
-        for (int i = 0; i < n; i++) {
-            ret[n+i-1] = new Edge(v[i], v[n+i]);
+        for (int i = 0; i < repeat_unit_n; i++) {
+            ret[repeat_unit_n +i-1] = new Edge(v[i], v[repeat_unit_n +i]);
         }
 
         return ret;
@@ -64,13 +64,13 @@ public class ChainGraph1 implements GraphGeneratorExtension, Parametrizable, Sim
     }
 
     public GPoint[] getVertexPositions() {
-        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        GPoint[] p2 = PositionGenerators.line(20, 5, 10000, 10000, n);
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, repeat_unit_n);
+        GPoint[] p2 = PositionGenerators.line(20, 5, 10000, 10000, repeat_unit_n);
         return concatWithArrayCopy(p1,p2);
     }
 
     public String checkParameters() {
-        if (n < 0) return "n must be positive";
+        if (repeat_unit_n < 0) return "n must be positive";
         else
             return null;
     }
@@ -84,7 +84,7 @@ public class ChainGraph1 implements GraphGeneratorExtension, Parametrizable, Sim
      * generates a Path Graph with given parameters
      */
     public static GraphModel generatePath(int n) {
-        ChainGraph1.n = n;
+        ChainGraph1.repeat_unit_n = n;
         return GraphGenerator.getGraph(false, new ChainGraph1());
     }
 

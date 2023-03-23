@@ -25,8 +25,8 @@ import java.util.Vector;
  */
 @CommandAttitude(name = "generate_pn", abbreviation = "_g_pn")
 public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, SimpleGeneratorInterface {
-    @Parameter(name = "N")
-    public static Integer n = 5;
+    @Parameter(name = "Repeat unit (n)")
+    public static Integer repeat_unit_n = 5;
     Vertex[] v;
 
     public String getName() {
@@ -38,8 +38,8 @@ public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, Sim
     }
 
     public Vertex[] getVertices() {
-        Vertex[] ret = new Vertex[3 * n - 1];
-        for (int i = 0; i < 3 * n - 1; i++)
+        Vertex[] ret = new Vertex[3 * repeat_unit_n - 1];
+        for (int i = 0; i < 3 * repeat_unit_n - 1; i++)
             ret[i] = new Vertex();
         v = ret;
         return ret;
@@ -47,24 +47,24 @@ public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, Sim
 
     public Edge[] getEdges() {
         Vector<Edge> ret = new Vector<>();
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < repeat_unit_n - 1; i++) {
             ret.add(new Edge(v[i], v[i + 1]));
         }
 
-        for (int i = 0; i < n - 1; i++) {
-            ret.add(new Edge(v[i + n], v[i + 1 + n]));
+        for (int i = 0; i < repeat_unit_n - 1; i++) {
+            ret.add(new Edge(v[i + repeat_unit_n], v[i + 1 + repeat_unit_n]));
         }
 
-        for (int i = 0; i < n; i++) {
-            ret.add(new Edge(v[i], v[n + i]));
+        for (int i = 0; i < repeat_unit_n; i++) {
+            ret.add(new Edge(v[i], v[repeat_unit_n + i]));
         }
 
-        for (int i = 0; i < n-1; i++) {
-            ret.add(new Edge(v[i], v[2*n + i]));
+        for (int i = 0; i < repeat_unit_n -1; i++) {
+            ret.add(new Edge(v[i], v[2* repeat_unit_n + i]));
         }
 
-        for (int i = 0; i < n-1; i++) {
-            ret.add(new Edge(v[i+n], v[2*n + i]));
+        for (int i = 0; i < repeat_unit_n -1; i++) {
+            ret.add(new Edge(v[i+ repeat_unit_n], v[2* repeat_unit_n + i]));
         }
 
         Edge[] ee = new Edge[ret.size()];
@@ -79,14 +79,14 @@ public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, Sim
     }
 
     public GPoint[] getVertexPositions() {
-        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, n);
-        GPoint[] p2 = PositionGenerators.line(4000, 5, 10000, 10000, n);
-        GPoint[] p3 = PositionGenerators.line(2000, 800, 10000, 10000, n-1);
+        GPoint[] p1 = PositionGenerators.line(5, 5, 10000, 10000, repeat_unit_n);
+        GPoint[] p2 = PositionGenerators.line(4000, 5, 10000, 10000, repeat_unit_n);
+        GPoint[] p3 = PositionGenerators.line(2000, 800, 10000, 10000, repeat_unit_n -1);
         return concatWithArrayCopy(concatWithArrayCopy(p1,p2), p3);
     }
 
     public String checkParameters() {
-        if (n < 0) return "n must be positive";
+        if (repeat_unit_n < 0) return "n must be positive";
         else
             return null;
     }
@@ -100,7 +100,7 @@ public class ChainGraph5 implements GraphGeneratorExtension, Parametrizable, Sim
      * generates a Path Graph with given parameters
      */
     public static GraphModel generatePath(int n) {
-        ChainGraph5.n = n;
+        ChainGraph5.repeat_unit_n = n;
         return GraphGenerator.getGraph(false, new ChainGraph5());
     }
 
