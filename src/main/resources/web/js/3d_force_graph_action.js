@@ -1,4 +1,5 @@
 var gui = new dat.GUI({ autoPlace: false });//new dat.GUI({name: 'My GUI', });
+gui.width = 400;
 //gui.domElement.id = "parent_canvas";
 var vis = gui.addFolder('Visualization');
 
@@ -21,12 +22,12 @@ var visController = {
               springCoefficient: 0.0008,
               dragCoefficient: 0.02
 };
-dg =vis.add(visController,'dragCoefficient');
-gr = vis.add(visController,'gravity');
-sc = vis.add(visController,'springCoefficient');
-sl = vis.add(visController,'springLength');
+dg =vis.add(visController,'dragCoefficient').name("drag coefficient");
+gr = vis.add(visController,'gravity').name("Coulomb constant (K)");
+sc = vis.add(visController,'springCoefficient').name("Spring coefficient (k)");
+sl = vis.add(visController,'springLength').name("Spring length");
 theta = vis.add(visController,'theta');
-timeStep = vis.add(visController, 'timeStep');
+timeStep = vis.add(visController, 'timeStep').name("Time step");
 
 //const settings = new Settings();
 //const controllerOne = gui.add(settings, 'redDistance', 0, 100);
